@@ -10,20 +10,12 @@ const AllMeetup: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchMeetupsFromDatabase()
-      .then((res) => res.json())
-      .then((data) => {
-        const meetupsData: Meetup[] = [];
-        for (let key in data) {
-          const meetup = {
-            id: key,
-            ...data[key],
-          };
-          meetupsData.push(meetup);
-        }
+    fetchMeetupsFromDatabase().then((meetupsData) => {
+      if (meetupsData) {
         setIsLoading(false);
         setMeetups((preState) => [...preState, ...meetupsData]);
-      });
+      }
+    });
   }, []);
 
   if (isloading) {
