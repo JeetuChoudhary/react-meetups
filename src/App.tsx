@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { memo } from "react";
+import { Route, Switch } from "react-router";
+import Layout from "./components/Layout/Layout";
+import AddNewMeetup from "./pages/AddNewMeetup/AddNewMeetup";
+import AllMeetup from "./pages/AllMeetup/AllMeetup";
+import MyFavorite from "./pages/MyFavorite/MyFavorite";
+import { FavoritesContextProvider } from "./store/favoriteContext";
 
-function App() {
+const App = memo(() => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FavoritesContextProvider>
+      <Layout>
+        <Switch>
+          <Route path="/" exact>
+            <AllMeetup />
+          </Route>
+          <Route path="/addNewMeetup">
+            <AddNewMeetup />
+          </Route>
+          <Route path="/myFavorites">
+            <MyFavorite />
+          </Route>
+        </Switch>
+      </Layout>
+    </FavoritesContextProvider>
   );
-}
+});
 
 export default App;
